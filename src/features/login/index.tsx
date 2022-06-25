@@ -1,5 +1,5 @@
-import Link from 'next/link';
 import React, { useState } from 'react';
+import Header from 'src/components/Header';
 import styled from 'styled-components';
 import { useLoginMutation } from './useLoginMutation';
 
@@ -44,14 +44,7 @@ export default function Login() {
 
   return (
     <>
-      <S_Header>
-        <Link href='/'>
-          <S_Title>HAUS</S_Title>
-        </Link>
-        <Link href='/login'>
-          <p>login</p>
-        </Link>
-      </S_Header>
+      <Header />
       <S_Form onSubmit={handleFormSubmit} onChange={handleFormChange}>
         <S_Label>아이디</S_Label>
         <S_Input
@@ -80,17 +73,6 @@ export default function Login() {
     </>
   );
 }
-
-const S_Header = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px;
-`;
-
-const S_Title = styled.a`
-  font-size: 48px;
-`;
 
 const S_Form = styled.form`
   display: flex;
