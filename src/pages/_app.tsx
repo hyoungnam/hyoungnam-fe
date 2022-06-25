@@ -1,15 +1,14 @@
 import type { AppProps } from 'next/app';
-import { useState, useReducer, createContext } from 'react';
+import { useState } from 'react';
 import { Hydrate, QueryClient, QueryClientProvider } from 'react-query';
 import styled from 'styled-components';
-import UserProvider from 'src/context/user';
+import AuthProvider from 'src/context/AuthProvider';
 import setupMSW from '../api/setup';
 import GlobalStyle from '../styles/GlobalStyle';
 
 setupMSW();
 
 function MyApp({ Component, pageProps }: AppProps) {
-  
   const [queryClient] = useState(() => new QueryClient());
 
   return (
@@ -19,9 +18,9 @@ function MyApp({ Component, pageProps }: AppProps) {
       <S_Content>
         <QueryClientProvider client={queryClient}>
           <Hydrate state={pageProps.dehydratedState}>
-            <UserProvider>
+            <AuthProvider>
               <Component {...pageProps} />
-            </UserProvider>
+            </AuthProvider>
           </Hydrate>
         </QueryClientProvider>
       </S_Content>

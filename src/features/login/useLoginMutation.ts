@@ -1,15 +1,15 @@
 import { useMutation } from 'react-query';
 import { useRouter } from 'next/router';
-import { useUserInfoDispatch } from 'src/context/user';
+import { useAuthInfoDispatch } from 'src/context/AuthProvider';
 import { loginApi } from 'src/api';
 
 export const useLoginMutation = () => {
-  const dispatch = useUserInfoDispatch();
+  const dispatch = useAuthInfoDispatch();
   const router = useRouter();
-
+  
   return useMutation('login', loginApi, {
-    onSuccess: ({ data: { user } }) => {
-      dispatch?.login(user);
+    onSuccess: ({ data: { user, accessToken } }) => {
+      dispatch?.login(user, accessToken);
       router.push('/');
     },
     onError: (err) => alert(err),
