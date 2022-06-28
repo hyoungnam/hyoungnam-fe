@@ -44,8 +44,10 @@ export const handlers = [
       }),
     )
   }),
-
-  rest.get('/products', (req, res, ctx) => {
+  /**
+   * @See https://mswjs.io/docs/getting-started/integrate/node#direct-usage
+   */
+  rest.get('http://localhost:8000/products', (req, res, ctx) => {
     const { page = 1, size = 10 } = parseQueryString(req.url.search);
 
     const start = (Number(page) - 1) * Number(size);
