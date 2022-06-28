@@ -5,24 +5,37 @@ import styled from 'styled-components';
 import AuthProvider from 'src/context/AuthProvider';
 import setupMSW from '../api/setup';
 import GlobalStyle from '../styles/GlobalStyle';
+import ErrorBoundary from 'src/components/ErrorBoundary';
+import ErrorFallback from 'src/components/ErrorFallback';
 
 setupMSW();
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const [queryClient] = useState(() => new QueryClient());
+  const [queryClient] = useState(
+    () =>
+      new QueryClient({
+        defaultOptions: {
+          queries: {
+            suspense: true,
+          },
+        },
+      })
+  );
 
   return (
     <>
       <GlobalStyle />
       <S_Background />
       <S_Content>
-        <QueryClientProvider client={queryClient}>
-          <Hydrate state={pageProps.dehydratedState}>
-            <AuthProvider>
-              <Component {...pageProps} />
-            </AuthProvider>
-          </Hydrate>
-        </QueryClientProvider>
+        <ErrorBoundary fallback={<ErrorFallback />}>
+          <QueryClientProvider client={queryClient}>
+            <Hydrate state={pageProps.dehydratedState}>
+              <AuthProvider>
+                <Component {...pageProps} />
+              </AuthProvider>
+            </Hydrate>
+          </QueryClientProvider>
+        </ErrorBoundary>
       </S_Content>
     </>
   );

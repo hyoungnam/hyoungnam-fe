@@ -1,30 +1,55 @@
-import React from 'react';
+import React, { Dispatch, SetStateAction } from 'react';
 import styled from 'styled-components';
 import { VscChevronLeft, VscChevronRight } from 'react-icons/vsc';
 
-const Pagination = () => {
+interface Props {
+  page: number;
+  pagingNums: number[];
+  hasPreviousPaging: boolean;
+  hasNextPaging: boolean;
+  onPreviousPagingButtonClick: () => void;
+  onNextPagingButtonClick: () => void;
+  onPagingNumButtonClick: (pagingNum: number) => void;
+}
+
+const Pagination = ({
+  page,
+  pagingNums,
+  hasPreviousPaging,
+  hasNextPaging,
+  onPreviousPagingButtonClick,
+  onNextPagingButtonClick,
+  onPagingNumButtonClick,
+}: Props) => {
   return (
-    <Container>
-      <Button disabled>
+    <S_Box>
+      {/* 이전 범위 버튼 */}
+      <S_Button onClick={onPreviousPagingButtonClick} disabled={!hasPreviousPaging}>
         <VscChevronLeft />
-      </Button>
-      <PageWrapper>
-        {[1, 2, 3, 4, 5].map((page) => (
-          <Page key={page} selected={page === 1} disabled={page === 1}>
-            {page}
-          </Page>
+      </S_Button>
+      <S_PagingWrapper>
+        {pagingNums.map((pagingNum: number) => (
+          <S_PagingNumButton
+            key={`paging-${pagingNum}`}
+            selected={pagingNum === page}
+            disabled={pagingNum === page}
+            onClick={() => onPagingNumButtonClick(pagingNum)}
+          >
+            {pagingNum}
+          </S_PagingNumButton>
         ))}
-      </PageWrapper>
-      <Button disabled={false}>
+      </S_PagingWrapper>
+      {/* 다음 범위 버튼 */}
+      <S_Button onClick={onNextPagingButtonClick} disabled={!hasNextPaging}>
         <VscChevronRight />
-      </Button>
-    </Container>
+      </S_Button>
+    </S_Box>
   );
 };
 
 export default Pagination;
 
-const Container = styled.div`
+const S_Box = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -34,14 +59,14 @@ const Container = styled.div`
   margin-left: -20px;
 `;
 
-const Button = styled.button`
+const S_Button = styled.button`
   &:disabled {
     color: #e2e2ea;
     cursor: default;
   }
 `;
 
-const PageWrapper = styled.div`
+const S_PagingWrapper = styled.div`
   display: flex;
   margin: 0 16px;
 `;
@@ -50,7 +75,7 @@ type PageType = {
   selected: boolean;
 };
 
-const Page = styled.button<PageType>`
+const S_PagingNumButton = styled.button<PageType>`
   padding: 4px 6px;
   background-color: ${({ selected }) => (selected ? '#000' : 'transparent')};
   color: ${({ selected }) => (selected ? '#fff' : '#000')};
