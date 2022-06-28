@@ -5,6 +5,9 @@ const nextConfig = {
   compiler: {
     styledComponents: true,
   },
-}
+  experimental: {
+    reactRoot: 'concurrent',
+  },
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;

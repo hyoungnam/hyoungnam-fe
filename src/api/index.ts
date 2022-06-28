@@ -6,6 +6,11 @@ export const loginApi = async (userInput: { [k: string]: FormDataEntryValue }) =
 };
 
 export const authApi = async (userId: string) => {
-   const response = await axios.get(`/users/${userId}`);
-   return response.data
+  const response = await axios.get(`/users/${userId}`);
+  return response.data;
+};
+
+export const getProductsApi = async (page = 1, size = 10) => {
+  const response = await axios.get(`http://localhost:8000/products?page=${page}&size=${size}`);
+  return response.data;
 };
