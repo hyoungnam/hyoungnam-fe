@@ -7,6 +7,10 @@ const nextConfig = {
   },
   experimental: {
     reactRoot: 'concurrent',
+    scrollRestoration: true,
+  },
+  images: {
+    domains: ['contents.sixshop.com'],
   },
 };
 
