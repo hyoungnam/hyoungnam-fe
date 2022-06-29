@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import { numberWithCommas } from 'src/utilities';
 import styled from 'styled-components';
@@ -11,7 +12,13 @@ type ProductItemProps = {
 const ProductItem = ({ product: { id, name, thumbnail, price } }: ProductItemProps) => (
   <Link href={`products/${id}`}>
     <S_Anchor>
-      <S_Thumbnail src={thumbnail ? thumbnail : '/defaultThumbnail.jpg'} />
+      <Image
+        src={thumbnail ? thumbnail : '/defaultThumbnail.jpg'}
+        alt={`Product-${id}`}
+        loading='lazy'
+        width='180px'
+        height='180px'
+      />
       <S_Name>{name}</S_Name>
       <S_Price>{numberWithCommas(price)}원</S_Price>
     </S_Anchor>
@@ -24,11 +31,6 @@ const S_Anchor = styled.a`
   width: 180px;
   margin-left: 20px;
   margin-top: 20px;
-`;
-
-const S_Thumbnail = styled.img`
-  width: 100%;
-  height: 180px;
 `;
 
 const S_Name = styled.div`

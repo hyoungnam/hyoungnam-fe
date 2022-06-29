@@ -1,3 +1,4 @@
+import { ReactQueryDevtools } from 'react-query/devtools';
 import type { AppProps } from 'next/app';
 import { useState } from 'react';
 import { Hydrate, QueryClient, QueryClientProvider } from 'react-query';
@@ -29,6 +30,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       <S_Content>
         <ErrorBoundary fallback={<ErrorFallback />}>
           <QueryClientProvider client={queryClient}>
+            <ReactQueryDevtools initialIsOpen={false} />
             <Hydrate state={pageProps.dehydratedState}>
               <AuthProvider>
                 <Component {...pageProps} />
