@@ -46,7 +46,9 @@ query 훅을 분리하려고 하였으나 그렇게 하면 page 상태가 usePag
 
 fallback true와 blocking 중 어떤것을 할까 고민하다 페이지가 무겁지 않고, router.isFallback 방어로직을 작성할 필요가 없다는 점, layout shift를 피할 수 있다는 점, 몇 crawler들은 Javascript을 지원이 원활하지 않다는 점에서 blocking으로 결정하였습니다. 추가로 ISR을 적용하기 위해 revalidate 옵션을 설정하였습니다.
 
+#### 기타
 
+스토리지 관련 부분 훅으로 만드는등의 고도화가 필요합니다
 
 
 
