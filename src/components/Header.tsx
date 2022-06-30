@@ -9,9 +9,11 @@ export default function Header() {
     <>
       <S_Header>
         {/* 헤더 왼쪽 영역 */}
-        <Link href='/'>
-          <S_Title>HAUS</S_Title>
-        </Link>
+        <h1>
+          <Link href='/'>
+            <S_Title>HAUS</S_Title>
+          </Link>
+        </h1>
         {/* 헤더 오른쪽 영역 */}
         {NAME ? <Logout /> : <Login />}
       </S_Header>
@@ -38,7 +40,7 @@ function Login() {
   );
 }
 
-const S_Header = styled.h1`
+const S_Header = styled.header`
   display: flex;
   justify-content: space-between;
   align-items: center;

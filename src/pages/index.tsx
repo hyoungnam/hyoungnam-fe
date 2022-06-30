@@ -8,21 +8,23 @@ const HomePage: NextPage = () => {
   return (
     <>
       <Header />
-      <Container>
-        <Link href='/pagination?page=1'>
-          <StyledLink>pagination</StyledLink>
-        </Link>
-        <Link href='/infinite-scroll'>
-          <StyledLink>infinite scroll</StyledLink>
-        </Link>
-      </Container>
+      <main>
+        <S_Section>
+          <Link href='/pagination?page=1'>
+            <S_Anchor>pagination</S_Anchor>
+          </Link>
+          <Link href='/infinite-scroll'>
+            <S_Anchor>infinite scroll</S_Anchor>
+          </Link>
+        </S_Section>
+      </main>
     </>
   );
 };
 
 export default HomePage;
 
-const Container = styled.div`
+const S_Section = styled.section`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -31,7 +33,7 @@ const Container = styled.div`
   margin-top: 40px;
 `;
 
-const StyledLink = styled.a`
+const S_Anchor = styled.a`
   display: flex;
   justify-content: center;
   width: 240px;

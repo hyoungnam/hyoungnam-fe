@@ -9,14 +9,18 @@ const ProductDetailPage: NextPage<{ product: Product }> = ({ product }) => {
   return (
     <>
       <Header />
-      <Thumbnail
-        src={product.thumbnail ? product.thumbnail : '/defaultThumbnail.jpg'}
-        alt={product.name}
-      />
-      <ProductInfoWrapper>
-        <Name>{product.name}</Name>
-        <Price>{product.price}원</Price>
-      </ProductInfoWrapper>
+      <main>
+        <section>
+          <Thumbnail
+            src={product.thumbnail ? product.thumbnail : '/defaultThumbnail.jpg'}
+            alt={product.name}
+          />
+          <ProductInfoWrapper>
+            <Name>{product.name}</Name>
+            <Price>{product.price}원</Price>
+          </ProductInfoWrapper>
+        </section>
+      </main>
     </>
   );
 };

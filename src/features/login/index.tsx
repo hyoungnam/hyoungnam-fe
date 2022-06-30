@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import Header from 'src/components/Header';
 import styled from 'styled-components';
 import { useLoginMutation } from './useLoginMutation';
 
@@ -43,34 +42,35 @@ export default function Login() {
   };
 
   return (
-    <>
-      <Header />
-      <S_Form onSubmit={handleFormSubmit} onChange={handleFormChange}>
-        <S_Label>아이디</S_Label>
-        <S_Input
-          type='text'
-          name={ID}
-          pattern='[0-9A-Za-z]{5,30}'
-          onBlur={handleInputBlur}
-          isInvalid={isInvalidUserId}
-          required
-        />
-        {isInvalidUserId && <S_ErrorMessage>올바른 아이디 형식으로 입력해주세요</S_ErrorMessage>}
-        <S_Label>비밀번호</S_Label>
-        <S_Input
-          type='password'
-          name={PASSWORD}
-          pattern='(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,30}'
-          onBlur={handleInputBlur}
-          isInvalid={isInvalidPassword}
-          required
-        />
-        {isInvalidPassword && (
-          <S_ErrorMessage>올바른 비밀번호 형식으로 입력해주세요</S_ErrorMessage>
-        )}
-        <S_Button disabled={isInvalidUserId || isInvalidPassword}>로그인</S_Button>
-      </S_Form>
-    </>
+    <main>
+      <section>
+        <S_Form onSubmit={handleFormSubmit} onChange={handleFormChange}>
+          <S_Label>아이디</S_Label>
+          <S_Input
+            type='text'
+            name={ID}
+            pattern='[0-9A-Za-z]{5,30}'
+            onBlur={handleInputBlur}
+            isInvalid={isInvalidUserId}
+            required
+          />
+          {isInvalidUserId && <S_ErrorMessage>올바른 아이디 형식으로 입력해주세요</S_ErrorMessage>}
+          <S_Label>비밀번호</S_Label>
+          <S_Input
+            type='password'
+            name={PASSWORD}
+            pattern='(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,30}'
+            onBlur={handleInputBlur}
+            isInvalid={isInvalidPassword}
+            required
+          />
+          {isInvalidPassword && (
+            <S_ErrorMessage>올바른 비밀번호 형식으로 입력해주세요</S_ErrorMessage>
+          )}
+          <S_Button disabled={isInvalidUserId || isInvalidPassword}>로그인</S_Button>
+        </S_Form>
+      </section>
+    </main>
   );
 }
 

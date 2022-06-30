@@ -22,7 +22,7 @@ export default function InfiniteScrollProducts() {
     ({ pageParam = 1 }) => getProductsApi(pageParam, PRODUCTS_SIZE_PER_SCROLL),
     {
       // 1000ms
-      staleTime: 1000 * 60 * 5, 
+      staleTime: 1000 * 60 * 5,
       refetchOnWindowFocus: false,
       getNextPageParam,
     }
@@ -30,11 +30,13 @@ export default function InfiniteScrollProducts() {
   const targetRef = useIntersectionObserver(() => hasNextPage && fetchNextPage());
 
   return (
-    <S_Section>
-      <ProductList products={getProductsFromInifiteQueryPages(data!.pages)} />
-      {isFetchingNextPage && <Skeleton />}
-      <S_Observe ref={targetRef as any} />
-    </S_Section>
+    <main>
+      <S_Section>
+        <ProductList products={getProductsFromInifiteQueryPages(data!.pages)} />
+        {isFetchingNextPage && <Skeleton />}
+        <S_Observe ref={targetRef as any} />
+      </S_Section>
+    </main>
   );
 }
 

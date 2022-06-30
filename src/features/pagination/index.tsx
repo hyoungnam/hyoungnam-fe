@@ -23,18 +23,20 @@ export default function ProductPagination(props: Props) {
   const { products } = data.data;
 
   return (
-    <S_Section>
-      <ProductList products={products} />
-      <Pagination
-        page={page}
-        pagingNums={pagingNums}
-        hasPreviousPaging={hasPreviousPaging}
-        hasNextPaging={hasNextPaging}
-        onPreviousPagingButtonClick={setPreviousMaxPaging}
-        onPagingNumButtonClick={setPage}
-        onNextPagingButtonClick={setNextMinPaging}
-      />
-    </S_Section>
+    <main>
+      <S_Section>
+        <ProductList products={products} />
+        <Pagination
+          page={page}
+          pagingNums={pagingNums}
+          hasPreviousPaging={hasPreviousPaging}
+          hasNextPaging={hasNextPaging}
+          onPreviousPagingButtonClick={setPreviousMaxPaging}
+          onPagingNumButtonClick={setPage}
+          onNextPagingButtonClick={setNextMinPaging}
+        />
+      </S_Section>
+    </main>
   );
 }
 
