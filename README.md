@@ -8,7 +8,7 @@
 ### 🕸 웹 vscode 환경
 ------
 
-[바로가기]()
+[바로가기](https://github.dev/hyoungnam/hyoungnam-fe)
 
 
 
