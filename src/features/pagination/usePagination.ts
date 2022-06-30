@@ -21,6 +21,7 @@ const usePaginationQuery = ({ page: currentPage, queryKey, queryFn }: Parameters
   const { data } = useQuery([queryKey, page], () => queryFn(page), {
     keepPreviousData: true,
     suspense: true,
+    staleTime: 1000 * 60 * 2,
     onError: () => router.replace('/404'),
   });
 

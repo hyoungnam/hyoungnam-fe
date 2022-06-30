@@ -18,6 +18,8 @@ function MyApp({ Component, pageProps }: AppProps) {
         defaultOptions: {
           queries: {
             suspense: true,
+            refetchOnMount: false,
+            refetchOnWindowFocus: false,
           },
         },
       })

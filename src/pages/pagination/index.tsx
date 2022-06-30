@@ -4,13 +4,13 @@ import { dehydrate, QueryClient } from 'react-query';
 import { getProductsApi } from 'src/api';
 import Header from 'src/components/Header';
 import SixshopProductPagination from 'src/features/pagination';
-import { default as Skelethon } from 'src/features/pagination/Pagination.skeleton';
+import { default as Skeleton } from 'src/features/pagination/Pagination.skeleton';
 
 const PaginationPage: NextPage<{ page: number }> = ({ page }) => {
   return (
     <>
       <Header />
-      <Suspense fallback={<Skelethon />}>
+      <Suspense fallback={<Skeleton />}>
         <SixshopProductPagination page={page} />
       </Suspense>
     </>

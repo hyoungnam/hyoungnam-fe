@@ -22,8 +22,7 @@ export default function InfiniteScrollProducts() {
     ({ pageParam = 1 }) => getProductsApi(pageParam, PRODUCTS_SIZE_PER_SCROLL),
     {
       // 1000ms
-      staleTime: 1000 * 60 * 5,
-      refetchOnWindowFocus: false,
+      staleTime: 1000 * 60 * 2,
       getNextPageParam,
     }
   );
