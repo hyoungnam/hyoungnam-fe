@@ -75,7 +75,7 @@ export const handlers = [
     );
   }),
 
-  rest.get('/products/:id', (req, res, ctx) => {
+  rest.get('http://localhost:8000/products/:id', (req, res, ctx) => {
     const { id } = req.params;
 
     const index = Number(id) - 1;

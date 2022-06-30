@@ -1,24 +1,18 @@
-import Link from 'next/link';
-import type { NextPage } from 'next';
+import type { GetStaticPaths, GetStaticProps, NextPage } from 'next';
+import type { Product } from 'src/types/product';
 import React from 'react';
 import styled from 'styled-components';
+import Header from 'src/components/Header';
+import { getProductByIdApi, getProductsApi } from 'src/api';
 
-import products from '../../api/data/products.json';
-
-const ProductDetailPage: NextPage = () => {
-  const product = products[0];
-
+const ProductDetailPage: NextPage<{ product: Product }> = ({ product }) => {
   return (
     <>
-      <Header>
-        <Link href='/'>
-          <Title>HAUS</Title>
-        </Link>
-        <Link href='/login'>
-          <p>login</p>
-        </Link>
-      </Header>
-      <Thumbnail src={product.thumbnail ? product.thumbnail : '/defaultThumbnail.jpg'} />
+      <Header />
+      <Thumbnail
+        src={product.thumbnail ? product.thumbnail : '/defaultThumbnail.jpg'}
+        alt={product.name}
+      />
       <ProductInfoWrapper>
         <Name>{product.name}</Name>
         <Price>{product.price}원</Price>
@@ -29,16 +23,42 @@ const ProductDetailPage: NextPage = () => {
 
 export default ProductDetailPage;
 
-const Header = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px;
-`;
+export const getStaticPaths: GetStaticPaths = async () => {
+  const { data } = await getProductsApi();
+  const { products } = data;
+  const paths = products.map((product: Product) => ({
+    params: { id: product.id },
+  }));
+  return { paths, fallback: 'blocking' };
+};
 
-const Title = styled.a`
-  font-size: 48px;
-`;
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+  const paramsId = Number(params?.id);
+  try {
+    const { data } = await getProductByIdApi(paramsId);
+
+    const { product } = data;
+    return {
+      props: { product },
+      revalidate: 15,
+    };
+  } catch (err: any) {
+    // 현재 API 에러 404 응답에 따른 리다이렉트 설정
+    if (err.response.status === 404) {
+      return {
+        redirect: {
+          destination: '/NotProduct',
+          permanent: false,
+        },
+      };
+    }
+    /**
+     * ISR 에러 핸들링 관련 확인이 필요한 부분
+     * @see https:nextjs.org/docs/basic-features/data-fetching/incremental-static-regeneration#error-handling-and-revalidation
+     */
+    throw err;
+  }
+};
 
 const Thumbnail = styled.img`
   width: 100%;
