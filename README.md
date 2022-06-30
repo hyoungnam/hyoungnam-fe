@@ -40,7 +40,8 @@ query 훅을 분리하려고 하였으나 그렇게 하면 page 상태가 usePag
 
 **뒤로가기**
 
-뒤로가기 구현시 [nextjs에서 제공하는 config](https://mmazzarolo.com/blog/2021-04-10-nextjs-scroll-restoration/)를 활용하여 기능을 구현하였습니다. 그럼에도 불구하고 뒤로가기 진행시 데이터가 존재하지 않아 의문이였습다. react-query에서 cache가 제대로 되지 않아 문제가 있나 생각이 들어 [먼저 관련 문서](https://react-query.tanstack.com/guides/scroll-restoration)를 살펴보았습니다. query에서 scroll restoration은 문제가 없고, default cache time이 5분이여 해당 부분을 직접 확인하고자 react-query devtools를 설치하여 확인하였습니다. inactive로 들어간 상태가 캐싱되긴하지만 refetch가 일어나기에 getServerSideProps에서 호출이 일어나지 않나 생각하여 확인하고 해당 부분에서 재호출이 일어나고 있었습니다. 무한스크롤이기에 꼭 서버사이드 렌더링을 할 필요가 있나 다시 생각해보았고, 어차피 첫 데이터 이후에는 클라이언트에서 호출하며, 뒤로가기 문제를 해결하기 위해 클라이언트 렌더링으로 바꾸었습니다. 
+뒤로가기 구현시 [nextjs에서 제공하는 config](https://mmazzarolo.com/blog/2021-04-10-nextjs-scroll-restoration/)를 활용하여 기능을 구현하였습니다. 그럼에도 불구하고 뒤로가기 진행시 데이터가 존재하지 않아 의문이였습다. react-query에서 cache가 제대로 되지 않아 문제가 있나 생각이 들어 [먼저 관련 문서](https://react-query.tanstack.com/guides/scroll-restoration)를 살펴보았습니다. query에서 scroll restoration은 문제가 없고, default cache time이 5분이여 해당 부분을 직접 확인하고자 react-query devtools를 설치하여 확인하였습니다. inactive로 들어간 상태가 캐싱되긴하지만 refetch가 일어나기에 getServerSideProps에서 호출이 일어나지 않나 생각하여 확인하고 해당 부분에서 재호출이 일어나고 있었습니다. 
+무한스크롤이기에 꼭 서버사이드 렌더링을 할 필요가 있나 다시 생각해보았고, 어차피 첫 데이터 이후에는 클라이언트에서 호출하며, 뒤로가기 문제를 해결하기 위해 클라이언트 렌더링으로 바꾸었습니다. (한편 뒤로가기를 하는 경우 history api를 사용하여 클라이언트 사이드 이동을 할텐데 서버사이드 함수가 호출되는지 조금 의문이며, 캐쉬문제는 queryClient가 서버사이드 함수에서 재호출해서 그렇지 않나 추측되지만 정확하지 않고 더 알아보야할것 같습니다)
 
 #### 상품 상세
 
