@@ -45,8 +45,9 @@ export default function Login() {
     <main>
       <section>
         <S_Form onSubmit={handleFormSubmit} onChange={handleFormChange}>
-          <S_Label>아이디</S_Label>
+          <S_Label htmlFor={ID}>아이디</S_Label>
           <S_Input
+            id={ID}
             type='text'
             name={ID}
             pattern='[0-9A-Za-z]{5,30}'
@@ -54,9 +55,11 @@ export default function Login() {
             isInvalid={isInvalidUserId}
             required
           />
+
           {isInvalidUserId && <S_ErrorMessage>올바른 아이디 형식으로 입력해주세요</S_ErrorMessage>}
-          <S_Label>비밀번호</S_Label>
+          <S_Label htmlFor={PASSWORD}>비밀번호</S_Label>
           <S_Input
+            id={PASSWORD}
             type='password'
             name={PASSWORD}
             pattern='(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,30}'
