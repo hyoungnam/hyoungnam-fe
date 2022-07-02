@@ -4,6 +4,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Header from 'src/components/Header';
 import { getProductByIdApi, getProductsApi } from 'src/api';
+import axios from 'axios';
 
 const ProductDetailPage: NextPage<{ product: Product }> = ({ product }) => {
   return (
@@ -46,9 +47,9 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       props: { product },
       revalidate: 15,
     };
-  } catch (err: any) {
+  } catch (err) {
     // 현재 API 에러 404 응답에 따른 리다이렉트 설정
-    if (err.response.status === 404) {
+    if (axios.isAxiosError(err) && err.response?.status === 404) {
       return {
         redirect: {
           destination: '/NotProduct',

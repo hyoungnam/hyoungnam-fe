@@ -26,14 +26,14 @@ export default function InfiniteScrollProducts() {
       getNextPageParam,
     }
   );
-  const targetRef = useIntersectionObserver(() => hasNextPage && fetchNextPage());
+  const targetRef = useIntersectionObserver<HTMLDivElement>(() => hasNextPage && fetchNextPage());
 
   return (
     <main>
       <S_Section>
         <ProductList products={getProductsFromInifiteQueryPages(data!.pages)} />
         {isFetchingNextPage && <Skeleton />}
-        <S_Observe ref={targetRef as any} />
+        <S_Observe ref={targetRef} />
       </S_Section>
     </main>
   );
